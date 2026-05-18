@@ -12,9 +12,7 @@ class PeriodeController extends Controller
      */
     public function index()
     {
-        $result = Periode::all(); //select * from fakultas
-        //dd($result);//dump data
-        // return view('fakultas.index', $result);
+        $result = Periode::all();
         return view('periode.index', compact('result'));
     }
 
@@ -23,7 +21,7 @@ class PeriodeController extends Controller
      */
     public function create()
     {
-        //
+        return view('periode.create');
     }
 
     /**
@@ -31,7 +29,16 @@ class PeriodeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->validate([
+            'tahun_akademik' => 'required',
+            'semester'  => 'required'
+        ]);
+
+        //simpan data ke tabel periode
+        Periode::create($input);
+
+        //redirect ke route periode.index
+        return redirect() -> route('periode.index');
     }
 
     /**
