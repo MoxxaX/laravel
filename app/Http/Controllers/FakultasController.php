@@ -12,10 +12,10 @@ class FakultasController extends Controller
      */
     public function index()
     {
-        // akses tabel Fakultas
-        $result = Fakultas::all(); // SELECT * FROM fakultas
-        //dd($result); // dump data
-        return view('fakultas.index', compact('result')); // kirim data ke view
+        // Ambil semua data fakultas
+        $result = Fakultas::all();
+
+        return view('fakultas.index', compact('result'));
     }
 
     /**
@@ -31,18 +31,18 @@ class FakultasController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
-        // validasi input
+        // Validasi input
         $input = $request->validate([
-            'nama_fakultas' => 'required|unique:fakultas',
-            'singkatan'  => 'required'
+            'nama_fakultas' => 'required|unique:fakultas,nama_fakultas',
+            'singkatan'     => 'required'
         ]);
 
-        //simpan data ke tabel fakultas
+        // Simpan data
         Fakultas::create($input);
 
-        //redirect ke route fakultas.index
-        return redirect() -> route('fakultas.index');
+        return redirect()
+                ->route('fakultas.index')
+                ->with('success', 'Data fakultas berhasil ditambahkan');
     }
 
     /**
@@ -50,7 +50,7 @@ class FakultasController extends Controller
      */
     public function show(Fakultas $fakultas)
     {
-        //
+        return view('fakultas.show', compact('fakultas'));
     }
 
     /**
@@ -58,7 +58,7 @@ class FakultasController extends Controller
      */
     public function edit(Fakultas $fakultas)
     {
-        //
+        return view('fakultas.edit', compact('fakultas'));
     }
 
     /**
@@ -66,18 +66,29 @@ class FakultasController extends Controller
      */
     public function update(Request $request, Fakultas $fakultas)
     {
-        //
+        // Validasi
+        $input = $request->validate([
+            'nama_fakultas' => 'required|unique:fakultas,nama_fakultas,' . $fakultas->id,
+            'singkatan'     => 'required'
+        ]);
+
+        // Update data
+        $fakultas->update($input);
+
+        return redirect()
+                ->route('fakultas.index')
+                ->with('success', 'Data fakultas berhasil diupdate');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($fakultas)
+    public function destroy(Fakultas $fakultas)
     {
-        $fakultas = Fakultas::find($fakultas,'id');
         $fakultas->delete();
 
-        return redirect()->route('fakultas.index')
-                        ->with('success', 'Data berhasil dihapus');
+        return redirect()
+                ->route('fakultas.index')
+                ->with('success', 'Data berhasil dihapus');
     }
 }
