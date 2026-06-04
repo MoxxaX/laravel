@@ -29,7 +29,7 @@
     <!--begin::Accessibility Features-->
     <!-- Skip links will be dynamically added by accessibility.js -->
     <meta name="supported-color-schemes" content="light dark" />
-    <link rel="preload" href="{{url('css/adminlte.css')}}" as="style" />
+    <link rel="preload" href="{{ url('css/adminlte.css') }}" as="style" />
     <!--end::Accessibility Features-->
 
     <!--begin::Fonts-->
@@ -60,7 +60,7 @@
     <!--end::Third Party Plugin(Bootstrap Icons)-->
 
     <!--begin::Required Plugin(AdminLTE)-->
-    <link rel="stylesheet" href="{{url('css/adminlte.css')}}"/>
+    <link rel="stylesheet" href="{{ url('css/adminlte.css') }}" />
     <!--end::Required Plugin(AdminLTE)-->
   </head>
   <!--end::Head-->
@@ -110,7 +110,7 @@
                   <div class="d-flex">
                     <div class="flex-shrink-0">
                       <img
-                        href="{{url('css/adminlte.css')}}"
+                        src="{{ url('assets/img/user1-128x128.jpg') }}"
                         alt="User Avatar"
                         class="img-size-50 rounded-circle me-3"
                       />
@@ -136,7 +136,7 @@
                   <div class="d-flex">
                     <div class="flex-shrink-0">
                       <img
-                        href="{{url('css/adminlte.css')}}"
+                        src="{{ url('assets/img/user8-128x128.jpg') }}"
                         alt="User Avatar"
                         class="img-size-50 rounded-circle me-3"
                       />
@@ -162,7 +162,7 @@
                   <div class="d-flex">
                     <div class="flex-shrink-0">
                       <img
-                        href="{{url('css/adminlte.css')}}"
+                        src="{{ url('assets/img/user3-128x128.jpg') }}"
                         alt="User Avatar"
                         class="img-size-50 rounded-circle me-3"
                       />
@@ -230,7 +230,7 @@
             <li class="nav-item dropdown user-menu">
               <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                 <img
-                  href="{{url('css/adminlte.css')}}"
+                  src="{{ url('assets/img/user2-160x160.jpg') }}"
                   class="user-image rounded-circle shadow"
                   alt="User Image"
                 />
@@ -240,7 +240,7 @@
                 <!--begin::User Image-->
                 <li class="user-header text-bg-primary">
                   <img
-                    href="{{url('css/adminlte.css')}}"
+                    src="{{ url('assets/img/user2-160x160.jpg') }}"
                     class="rounded-circle shadow"
                     alt="User Image"
                   />
@@ -270,7 +270,13 @@
                 <!--begin::Menu Footer-->
                 <li class="user-footer">
                   <a href="#" class="btn btn-outline-secondary">Profile</a>
-                  <a href="#" class="btn btn-outline-danger float-end">Sign out</a>
+                  <form method="POST" action="{{ route('logout') }}">
+                      @csrf
+
+                      <button type="submit" class="btn btn-outline-danger float-end">
+                          Sign out
+                      </button>
+                  </form>
                 </li>
                 <!--end::Menu Footer-->
               </ul>
@@ -290,7 +296,7 @@
           <a href="../index.html" class="brand-link">
             <!--begin::Brand Image-->
             <img
-              src="../assets/img/AdminLTELogo.png"
+              src="{{ url('assets/img/AdminLTELogo.png') }}"
               alt="AdminLTE Logo"
               class="brand-image opacity-75 shadow"
             />
@@ -315,33 +321,13 @@
               id="navigation"
             >
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('dashboard') }}" class="nav-link">
                   <i class="nav-icon bi bi-speedometer"></i>
                   <p>
                     Dashboard
                     <i class="nav-arrow bi bi-chevron-right"></i>
                   </p>
                 </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="../index.html" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Dashboard v1</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="../index2.html" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Dashboard v2</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="../index3.html" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Dashboard v3</p>
-                    </a>
-                  </li>
-                </ul>
               </li>
               <li class="nav-item">
                 <a href="{{ route('periode.index') }}" class="nav-link">
@@ -358,9 +344,18 @@
               <li class="nav-item">
                 <a href="{{ route('prodi.index') }}" class="nav-link">
                   <i class="nav-icon bi bi-bank"></i>
-                  <p>Prodi</p>
+                  <p>Program Studi</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="{{ route('mahasiswa.index') }}" class="nav-link">
+                  <i class="nav-icon bi bi-people"></i>
+                  <p>Mahasiswa</p>
+                </a>
+              </li>
+              
+            </ul>
+            <!--end::Sidebar Menu-->
           </nav>
         </div>
         <!--end::Sidebar Wrapper-->
@@ -470,7 +465,7 @@
       crossorigin="anonymous"
     ></script>
     <!--end::Required Plugin(Bootstrap 5)--><!--begin::Required Plugin(AdminLTE)-->
-    <script href="{{url('css/adminlte.css')}}"></script>
+    <script src="{{ url('js/adminlte.js') }}"></script>
     <!--end::Required Plugin(AdminLTE)--><!--begin::OverlayScrollbars Configure-->
     <script>
       const SELECTOR_SIDEBAR_WRAPPER = '.sidebar-wrapper';
@@ -500,7 +495,12 @@
         }
       });
     </script>
-    <script src="https://code.jquery.com/jquery-4.0.0.slim.min.js" integrity="sha256-8DGpv13HIm+5iDNWw1XqxgFB4mj+yOKFNb+tHBZOowc=" crossorigin="anonymous"></script>
+    <!--end::OverlayScrollbars Configure-->
+    <!--end::Script-->
+    {{-- jQuery cdn --}}
+    <script src="https://code.jquery.com/jquery-4.0.0.min.js" integrity="sha256-OaVG6prZf4v69dPg6PhVattBXkcOWQB62pdZ3ORyrao=" crossorigin="anonymous"></script>
+
+    {{-- sweetalert --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
     <script type="text/javascript">
         $('.show_confirm').click(function(event) {
@@ -521,8 +521,6 @@
                 });
         });
     </script>
-    <!--end::OverlayScrollbars Configure-->
-    <!--end::Script-->
   </body>
   <!--end::Body-->
 </html>
