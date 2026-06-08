@@ -1,6 +1,8 @@
 {
     "version": 2,
-      "framework": null,
+    "framework": null,
+    "outputDirectory": "public/build",
+    
     "functions": {
         "api/index.php": { "runtime": "vercel-php@0.7.4" }
     },
@@ -24,10 +26,8 @@
         {
             "src": "/(.*)",
             "dest": "/api/index.php"
-        },
-        {
-        "outputDirectory": "public/build"
         }
+
     ],
     "env": {
         "APP_ENV": "production",
