@@ -156,8 +156,7 @@ return [
     |
     */
 
-    'domain' => env('SESSION_DOMAIN'),
-
+    'domain' => 'tugas-taupe.vercel.app',
     /*
     |--------------------------------------------------------------------------
     | HTTPS Only Cookies
