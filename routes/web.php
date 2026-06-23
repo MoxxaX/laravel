@@ -13,10 +13,9 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', [DashboardController::class, 'index'])
-    ->middleware('auth')
     ->name('dashboard');
 
-Route::middleware('auth')->group(function () {
+Route::group([],function () {
 
     Route::get('/mahasiswa', [MahasiswaController::class, 'index'])->name('mahasiswa.index');
     Route::get('/mahasiswa/create', [MahasiswaController::class, 'create'])->name('mahasiswa.create');
